@@ -154,11 +154,11 @@ def create_config(task_id, model, model_type, expected_repo_name=None, hours_to_
     # time_percent = 0.89
     # time_limit = 15
     time_percent = 0.87
-    time_limit = 15
+    time_limit = 20
 
-    warmup_percent = 0.11
-    warmup_limit = 10
-    warmup_step = 10
+    warmup_percent = 0.10
+    warmup_limit = 5
+    warmup_step = 5
 
     """Create the diffusion config file"""
     config_template_path = get_image_training_config_template_path(model_type, level)
@@ -259,7 +259,7 @@ def run_training(task_id, model, model_type, expected_repo_name, hours_to_comple
     start_time = time.time()
 
     docker_level = ["win","mix","live","low"]
-    docker_batch = [16,16,16,12,12,12,8,8,8,4,4,4]
+    docker_batch = [8,8,8,4,4,4]
     docker_seq = ["1024,1024","768,768","512,512","1024,1024","768,768","512,512","1024,1024","768,768","512,512","1024,1024","768,768","512,512"]
     docker_lrate = 0.0002
     docker_runtime = 10
@@ -272,7 +272,7 @@ def run_training(task_id, model, model_type, expected_repo_name, hours_to_comple
     # time_percent = 0.89
     # time_limit = 15
     time_percent = 0.87
-    time_limit = 15
+    time_limit = 20
 
 
     try:

@@ -224,6 +224,7 @@ def create_config(task_id, model, model_type, expected_repo_name=None, hours_to_
 
         my_warmup = [max_steps_percent_limit, max_steps_percent_percent, max_steps_limit_limit, max_steps_limit_percent]
         my_warmup_min = max(my_warmup)
+        
         config['max_train_steps'] = int(my_warmup_min/runtime)
 
         print(f"Final time {format_seconds(my_warmup_min)}")
@@ -477,6 +478,12 @@ def run_training(task_id, model, model_type, expected_repo_name, hours_to_comple
 
         try:
             docker_runtime = calculate_avg_time_from_file(task_id)
+            print(f"docker_runtime: {docker_runtime}")
+
+            if model_type == ImageModelType.SDXL.value:
+                docker_runtime =  int(docker_runtime*1.2)
+            elif model_type == ImageModelType.FLUX.value:
+                docker_runtime =  int(docker_runtime*0.9)
 
             print(f"Avg runtime: {docker_runtime}")
 
